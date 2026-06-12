@@ -1,6 +1,7 @@
 import { createReducer } from "redux-act";
 
 import createAction from "./utils/createMetaAction";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 
 // ------------------------------------
 // Actions
@@ -9,7 +10,7 @@ export const changeLabelLineIntensity = createAction(
   "changeLabelLineIntensity"
 );
 
-const newVal = window.localStorage.getItem("labelLineIntensity");
+const newVal = getStoredValue("labelLineIntensity");
 
 // ------------------------------------
 // Reducer
@@ -17,7 +18,7 @@ const newVal = window.localStorage.getItem("labelLineIntensity");
 export default createReducer(
   {
     [changeLabelLineIntensity]: (state, payload) => {
-      localStorage.setItem("labelLineIntensity", payload);
+      setStoredValue("labelLineIntensity", payload);
       return payload;
     }
   },

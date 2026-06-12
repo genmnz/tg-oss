@@ -2,6 +2,7 @@ import { createReducer } from "redux-act";
 
 //./caretPosition.js
 import createAction from "./utils/createMetaAction";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 // import createReducer from "./utils/createMergedDefaultStateReducer";
 
 // ------------------------------------
@@ -9,7 +10,7 @@ import createAction from "./utils/createMetaAction";
 // ------------------------------------
 export const updateSequenceCase = createAction("updateSequenceCase");
 
-const newVal = window.localStorage.getItem("uppercaseSequenceMapFont");
+const newVal = getStoredValue("uppercaseSequenceMapFont");
 
 // ------------------------------------
 // Reducer
@@ -17,7 +18,7 @@ const newVal = window.localStorage.getItem("uppercaseSequenceMapFont");
 export default createReducer(
   {
     [updateSequenceCase]: (state, payload) => {
-      localStorage.setItem("uppercaseSequenceMapFont", payload);
+      setStoredValue("uppercaseSequenceMapFont", payload);
       return payload;
     }
   },

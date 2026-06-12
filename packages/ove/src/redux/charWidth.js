@@ -1,12 +1,13 @@
 import { createReducer } from "redux-act";
 import createAction from "./utils/createMetaAction";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 export const updateSequenceSpacing = createAction("updateSequenceSpacing");
 
-const newVal = window.localStorage.getItem("charWidth");
+const newVal = getStoredValue("charWidth");
 
 // ------------------------------------
 // Reducer
@@ -14,7 +15,7 @@ const newVal = window.localStorage.getItem("charWidth");
 export default createReducer(
   {
     [updateSequenceSpacing]: (state, payload) => {
-      localStorage.setItem("charWidth", payload);
+      setStoredValue("charWidth", payload);
       return payload;
     }
   },

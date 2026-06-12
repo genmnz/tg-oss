@@ -1,6 +1,7 @@
 import createAction from "./utils/createMetaAction";
 import createMergedDefaultStateReducer from "./utils/createMergedDefaultStateReducer";
 import { noop } from "lodash-es";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 
 // ------------------------------------
 // Actions
@@ -34,7 +35,7 @@ export default createMergedDefaultStateReducer(
       };
     },
     [toggleIsInline]: state => {
-      localStorage.setItem("veFindBarIsExpanded", state.isInline);
+      setStoredValue("veFindBarIsExpanded", state.isInline);
       return {
         ...state,
         isInline: !state.isInline
@@ -77,7 +78,7 @@ export default createMergedDefaultStateReducer(
   },
   {
     isOpen: false,
-    isInline: !localStorage.getItem("veFindBarIsExpanded"),
+    isInline: !getStoredValue("veFindBarIsExpanded"),
     searchText: "",
     dnaOrAA: "DNA",
     ambiguousOrLiteral: "LITERAL",

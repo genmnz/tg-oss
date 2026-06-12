@@ -2,6 +2,7 @@ import { createReducer } from "redux-act";
 
 //./caretPosition.js
 import createAction from "./utils/createMetaAction";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 // import createReducer from "./utils/createMergedDefaultStateReducer";
 
 // ------------------------------------
@@ -15,9 +16,9 @@ export const toggleShowGCContent = createAction("toggleShowGCContent");
 export default createReducer(
   {
     [toggleShowGCContent]: (state, val) => {
-      localStorage.setItem("showGCContent", val);
+      setStoredValue("showGCContent", val);
       return val;
     }
   },
-  window.localStorage.getItem("showGCContent")
+  getStoredValue("showGCContent")
 );
