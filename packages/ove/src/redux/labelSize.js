@@ -1,13 +1,14 @@
 import { createReducer } from "redux-act";
 
 import createAction from "./utils/createMetaAction";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 export const changeLabelSize = createAction("changeLabelSize");
 
-const newVal = window.localStorage.getItem("labelSize");
+const newVal = getStoredValue("labelSize");
 
 // ------------------------------------
 // Reducer
@@ -15,7 +16,7 @@ const newVal = window.localStorage.getItem("labelSize");
 export default createReducer(
   {
     [changeLabelSize]: (state, payload) => {
-      localStorage.setItem("labelSize", payload);
+      setStoredValue("labelSize", payload);
       return payload;
     }
   },

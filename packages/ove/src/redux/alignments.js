@@ -4,6 +4,7 @@ import {
 } from "@teselagen/sequence-utils";
 import { convertBasePosTraceToPerBpTrace } from "@teselagen/bio-parsers";
 import shortid from "shortid";
+import { getStoredValue, setStoredValue } from "./utils/safeLocalStorage";
 
 import addDashesForMatchStartAndEndForTracks from "./utils/addDashesForMatchStartAndEndForTracks";
 
@@ -46,7 +47,7 @@ const defaultVisibilityTypes = Object.keys(defaultVisibilities);
 
 try {
   defaultVisibilityTypes.forEach(type => {
-    const newVal = JSON.parse(window.localStorage.getItem(type));
+    const newVal = JSON.parse(getStoredValue(type));
     if (newVal)
       defaultVisibilities[type] = {
         ...defaultVisibilities[type],
@@ -161,7 +162,7 @@ export default (state = {}, { payload = {}, type }) => {
           ...payload[type.replace("pairwise_", "")]
         };
 
-        localStorage.setItem(
+        setStoredValue(
           type,
           JSON.stringify({
             ...defaultVisibilities[type],

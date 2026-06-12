@@ -1,4 +1,3 @@
-import { showContextMenu } from "@teselagen/ui";
 import without from "lodash/without";
 import { createReducer } from "redux-act";
 import createAction from "./utils/createMetaAction";
@@ -30,7 +29,11 @@ export function replacementLayerRightClicked({ event, annotation }, meta) {
       }
     ];
 
-    showContextMenu(items, undefined, event);
+    // Lazily load the (UI-only) context menu so this reducer module stays
+    // importable in headless / non-browser contexts.
+    import("@teselagen/ui").then(({ showContextMenu }) => {
+      showContextMenu(items, undefined, event);
+    });
   };
 }
 
